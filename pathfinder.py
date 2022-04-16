@@ -58,11 +58,11 @@ def pathfinder(map, startingNode, endingNode):
     openList.append(startNode)
 
     while len(openList) > 0:
-        print('------------------------------')
+        # print('------------------------------')
         openNodesOutput = []
         for openNode in openList:
             openNodesOutput.append((openNode.x, openNode.y))
-        print(f'current openList = {openNodesOutput}')
+        # print(f'current openList = {openNodesOutput}')
 
         # find the open node with the lowest f(n)
         currNode = openList[0]
@@ -72,11 +72,11 @@ def pathfinder(map, startingNode, endingNode):
                 currNode = openList[i]
                 currIndex = i
 
-        print(f'currNode = ({currNode.x}, {currNode.y}), currIndex = {currIndex}')
+        # print(f'currNode = ({currNode.x}, {currNode.y}), currIndex = {currIndex}')
 
         # solution found!
         if currNode == goalNode:
-            print('solution found!!!')
+            # print('solution found!!!')
             return getPath(currNode, startNode, [])
 
         openList.pop(currIndex)
@@ -90,18 +90,18 @@ def pathfinder(map, startingNode, endingNode):
             newX = currNode.x + move[0]
             newY = currNode.y + move[1]
 
-            print(f'newX = {newX}, newY = {newY}')
+            # print(f'newX = {newX}, newY = {newY}')
 
             # check if newX, newY is valid before making Node(for efficiency)
-            if isValid(newX, newY, campusMap):
-                print('newX and newY were valid!')
+            if isValid(newX, newY, map):
+                # print('newX and newY were valid!')
                 childNode = Node(newX, newY, currNode)
                 childNodes.append(childNode)
 
         childNodesOutput = []
         for child in childNodes:
             childNodesOutput.append((child.x, child.y))
-        print(f'childNodes = {childNodesOutput}')
+        # print(f'childNodes = {childNodesOutput}')
         # go through child nodes and add them to openList to be 'analyzed'
         for child in childNodes:
             if ((child not in openList) and (child not in closedList)):
@@ -114,7 +114,7 @@ def pathfinder(map, startingNode, endingNode):
         openNodesOutput = []
         for openNode in openList:
             openNodesOutput.append((openNode.x, openNode.y))
-        print(f'new openList = {openNodesOutput}')
+        # print(f'new openList = {openNodesOutput}')
 
         
         # already analyzed currNode, scheduled neighbors
@@ -135,59 +135,3 @@ def isValid(x, y, map):
         and (map[x][y] == True)):
         return True
     return False
-
-# test cases
-# startingNode=(2,4)
-# endingNode=(7,3)
-# endingNode=(7,3)
-# endingNode=(7,6)
-
-# None = grass
-# False = building
-# True = road
-
-# hardcoded test map #1
-# campusMap=[
-#     [None, None,  None,  None,  None, None, None, None,  None,  None],
-#     [None, False, False, False, None, None, None, False, False, None],
-#     [None, False, False, False, True, True, True, False, False, None],
-#     [None, False, False, False, None, True, None, False, False, None],
-#     [None, False, False, False, None, True, None, None,  None,  None],
-#     [None, None,  None,  None,  None, True, None, False, False, None],
-#     [None, False, False, None,  None, True, None, False, False, None],
-#     [None, False, False, True,  True, True, True, False, False, None],
-#     [None, False, False, None,  None, None, None, False, False, None],
-#     [None, None,  None,  None,  None, None, None, None,  None,  None]
-# ]
-
-# test starting and ending nodes
-startingNode=(5,10)
-# startingNode=(5,2)
-# endingNode=(5,2)
-endingNode=(17,5)
-
-# hardcoded test map #2
-campusMap=[
-    [None, None,  None,  None,  None,  None,  None,   None,  None,  None,  None,  None,  None,  None,  None,  None,  None,  None, None, None],
-    [None, True,  True,  True,  True,  True,  True,   True,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True, True, None],
-    [None, True,  None,  None,  None,  None,  True,   None,  None,  None,  None,  True,  None,  True,  None,  None,  None,  None, True, None],
-    [None, True,  None,  False, False, None,  True,   None,  False, False, None,  True,  None,  True,  None,  False, False, None, True, None],
-    [None, True,  None,  False, False, None,  True,   None,  False, False, None,  True,  True,  True,  None,  False, False, None, True, None],
-    [None, True,  True,  False, False, None,  True,   None,  False, False, True,  True,  None,  True,  None,  False, False, None, True, None],
-    [None, True,  None,  False, False, None,  True,   None,  False, False, None,  True,  None,  True,  None,  False, False, None, True, None],
-    [None, True,  None,  False, False, None,  True,   None,  False, False, None,  True,  None,  True,  None,  False, False, True, True, None],
-    [None, True,  None,  False, False, None,  True,   None,  False, False, None,  True,  None,  True,  None,  False, False, None, True, None],
-    [None, True,  None,  None,  None,  None,  True,   None,  None,  None,  None,  True,  None,  True,  None,  False, False, None, True, None],
-    [None, True,  True,  True,  True,  True,  True,   True,  True,  True,  True,  True,  True,  True,  None,  None,  None,  None, True, None],
-    [None, True,  None,  None,  None,  None,  None,   None,  True,  None,  None,  None,  None,  True,  True,  True,  True,  True, True, None],
-    [None, True,  None,  False, False, False, False,  None,  True,  None,  False, False, None,  True,  None,  None,  True,  None, True, None],
-    [None, True,  None,  False, False, False, False,  None,  True,  None,  False, False, None,  True,  None,  False, False, None, True, None],
-    [None, True,  None,  False, False, False, False,  None,  True,  None,  False, False, None,  True,  None,  False, False, None, True, None],
-    [None, True,  None,  False, False, False, False,  None,  True,  None,  False, False, None,  True,  None,  False, False, None, True, None],
-    [None, True,  None,  False, False, False, False,  None,  True,  None,  False, False, None,  True,  None,  False, False, None, True, None],
-    [None, True,  None,  None,  None,  True,  None,   None,  True,  None,  None,  True,  None,  True,  None,  None,  None,  None, True, None],
-    [None, True,  True,  True,  True,  True,  True,   True,  True,  True,  True,  True,  True,  True,  True,  True,  True,  True, True, None],
-    [None, None,  None,  None,  None,  None,  None,   None,  None,  None,  None,  None,  None,  None,  None,  None,  None,  None, None, None]
-]
-
-print(pathfinder(campusMap, startingNode, endingNode))
